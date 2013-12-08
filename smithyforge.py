@@ -25,11 +25,11 @@ app = Flask(__name__)
 
 # CONFIGURATION
 
-app.config['DEBUG']                   = True
-app.config['PER_PAGE']                = 30
-app.config['SECRET_KEY']              = 'development key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://xav@localhost:5432/smithytest'
-
+# app.config['DEBUG']                   = True
+# app.config['PER_PAGE']                = 30
+app.config['SECRET_KEY']              = '\xd86\x0e\xaaGCR\xce\x025?\x99\xc7\xce\xe9f\xee\x0b\xfc5\x96\xe6o\x1b'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://xav@localhost:5432/smithytest'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vwiikxygjdqulb:0V890bb0Xt3Bv9gwid6hQ7q0wg@ec2-54-247-64-118.eu-west-1.compute.amazonaws.com:5432/dfvrpso9di800p'
 db = SQLAlchemy(app)
 
 
@@ -237,4 +237,4 @@ def newdlc():
 
 if __name__ == '__main__':
     db.create_all()
-    app.run(debug=True)
+    app.run()
