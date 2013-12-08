@@ -18,35 +18,35 @@
   <p>Visit the <a href="http://www.rscustom.net/">Rocksmith Custom Song Project</a> and <a href="http://forums.smithyanvil.com/">Smithy's Anvil</a>.</p>
 
   <h3>Browse CDLCs</h3>
-  <table class="table table-striped table-hover">
+  <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example" width="100%">
     <thead>
         <tr>
             <th>Title</th>
             <th>Artist</th>
             <th>Album</th>
-            <th></th>
+            <th>Platform</th>
         </tr>
     </thead>
     <tbody>
       {% for m in messages %}
         <tr>
-            <td>{{ m.title }}</td>
-            <td>{{ m.artist }}</td>
-            <td>{{ m.album }}</td>
-            <td>
-              {% if m.url_pc %}
-                <a href="{{ m.url_pc }}" class="btn btn-default btn-table btn-sm">Win</a>
-              {% endif %}
-              {% if m.url_mac %}
-                <a href="{{ m.url_mac }}" class="btn btn-default btn-table btn-sm">Mac</a>
-              {% endif %}
-              {% if m.url_xbox %}
-                <a href="{{ m.url_xbox }}" class="btn btn-default btn-table btn-sm">Xbox</a>
-              {% endif %}
-              {% if m.url_ps3 %}
-                <a href="{{ m.url_ps3 }}" class="btn btn-default btn-table btn-sm">PS3</a>
-              {% endif %}
-            </td>
+          <td>{{ m.title }}</td>
+          <td>{{ m.artist }}</td>
+          <td>{{ m.album }}</td>
+          <td>
+            {% if m.url_pc %}
+              <a href="{{ m.url_pc }}" class="btn btn-success">Win</a>
+            {% endif %}
+            {% if m.url_mac %}
+              <a href="{{ m.url_mac }}" class="btn btn-success">Mac</a>
+            {% endif %}
+            {% if m.url_xbox %}
+              <a href="{{ m.url_xbox }}" class="btn btn-success">Xbox</a>
+            {% endif %}
+            {% if m.url_ps3 %}
+              <a href="{{ m.url_ps3 }}" class="btn btn-success">PS3</a>
+            {% endif %}
+          </td>
         </tr>
       {% endfor %}
     </tbody>
@@ -61,5 +61,20 @@
         <button class="btn btn-default" type="submit">Go</button>
   </form>
 </div>
+
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+var editor; // use a global for the submit and return data rendering in the examples
+
+$(document).ready(function() {
+    $('#example').dataTable( {
+        "sDom": "<'row'<'col-xs-6'T><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+    } );
+} );
+</script>
 
 {% endblock %}
