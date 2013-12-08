@@ -36,6 +36,7 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True)
     email    = db.Column(db.String(120), unique=True)
     pw_hash  = db.Column(db.String(80))
+    cdlcs    = db.relationship('CDLC', backref='User', lazy='dynamic')
 
     def __init__(self, username, email, password):
         self.username = username
@@ -47,10 +48,20 @@ class User(db.Model):
 
 
 class CDLC(db.Model):
-    id      = db.Column(db.Integer, primary_key=True)
-    title   = db.Column(db.String(80))
-    url     = db.Column(db.String(80))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    id          = db.Column(db.Integer, primary_key=True)
+    title       = db.Column(db.String(80))
+    artist      = db.Column(db.String(80))
+    album       = db.Column(db.String(80))
+    year        = db.Column(db.Integer)
+    tags        = db.Column(db.String(80))
+    user_id     = db.Column(db.Integer, db.ForeignKey('user.id'))
+    last_update = db.Column(db.DateTime)
+    reviews     = db.relationship('Review', backref='CDLC', lazy='dynamic')
+    url_pc      = db.Column(db.String(120))
+    url_mac     = db.Column(db.String(120))
+    url_xbox    = db.Column(db.String(120))
+    url_ps3     = db.Column(db.String(120))
+    dl_count    = db.Column(db.Integer)
 
     def __init__(self, title, url):
         self.title = title
@@ -59,6 +70,16 @@ class CDLC(db.Model):
     def __repr__(self):
         return '<CDLC %r>' % self.id
 
+
+class Review(db.Model):
+    id      = db.Column(db.Integer, primary_key=True)
+    cdlc_id = db.Column(db.Integer, db.ForeignKey('CDLC.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    date    = db.Column(db.DateTime)
+    content = db.Column(db.Text)
+
+    def __repr__(self):
+        return '<Review %r>' % self.id
 
 
 
