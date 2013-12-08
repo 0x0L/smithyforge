@@ -1,38 +1,35 @@
 {% extends "layout.html" %}
-<!-- {% block title %}
-  {% if request.endpoint == 'public_timeline' %}
-    Public Timeline
-  {% elif request.endpoint == 'user_timeline' %}
-    {{ profile_user.username }}'s Timeline
-  {% else %}
-    My Timeline
-  {% endif %}
-{% endblock %}
- -->{% block body %}
-  <h2>{{ self.title() }}</h2>
-  {% if g.user %}
-    {% if request.endpoint == 'user_timeline' %}
-      <div class=followstatus>
+{% block title %} {{request.endpoint}} {% endblock %}
+
+{% block body %}
+
+<!-- <h2>{{ self.title() }}</h2> -->
+
+{% if g.user %}
+  {% if request.endpoint == 'user_timeline' %}
+    <div class=followstatus>
       {% if g.user.user_id == profile_user.user_id %}
         This is you!
       {% elif followed %}
         You are currently following this user.
-        <a class=unfollow href="{{ url_for('unfollow_user', username=profile_user.username)
-          }}">Unfollow user</a>.
+        <a class=unfollow href="{{ url_for('unfollow_user', username=profile_user.username)}}">Unfollow user</a>.
       {% else %}
         You are not yet following this user.
-        <a class=follow href="{{ url_for('follow_user', username=profile_user.username)
-          }}">Follow user</a>.
+        <a class=follow href="{{ url_for('follow_user', username=profile_user.username)}}">Follow user</a>.
       {% endif %}
-      </div>
-    {% elif request.endpoint == 'timeline' %}
-      <div class=twitbox>
-        <h3>What's on your mind {{ g.user.username }}?</h3>
-        <form action="{{ url_for('add_message') }}" method=post>
-          <p><input type=text name=text size=60><!--
-          --><input type=submit value="Share">
-        </form>
-      </div>
-    {% endif %}
+    </div>
+  {% elif request.endpoint == 'home' %}
+    <!-- <h3>Welcome back, {{ g.user.username }}!</h3> -->
+    <div class="container">
+      <h3>Create a new custom</h3>
+      <form role="form" class=form-inline action="{{ url_for('newdlc') }}">
+      <div class="form-group">
+            <input class="form-control" placeholder="example: http://www.last.fm/music/Michael+Jackson/Thriller/Beat+It" name="lastfm" type="text" size="100" value="">
+            </div>
+            <button class="btn btn-default" type="submit">Go</button>
+      </form>
+    </div>
   {% endif %}
+{% endif %}
+
 {% endblock %}

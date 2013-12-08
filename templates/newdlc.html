@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block title %} {{request.endpoint}} {% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <form role="form" method="post">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" name="title" value="{{ x.title }}">
+    </div>
+    <div class="form-group">
+      <label for="artist">Artist</label>
+      <input type="text" class="form-control" name="artist" value="{{ x.artist }}">
+    </div>
+    <div class="form-group">
+      <label for="album">Album</label>
+      <input type="text" class="form-control" name="album" value="{{ x.album }}">
+    </div>
+<!--     <div class="form-group">
+      <label for="year">Year</label>
+      <input type="number" class="form-control" name="year" value="{{ x.year }}">
+    </div>
+ -->
+    <div class="form-group">
+      <label for="artwork">Artwork</label>
+      <input type="text" class="form-control" name="artwork" value="{{ x.artwork }}">
+    </div>
+    <div class="form-group">
+      <label for="tags">Tags</label>
+      <input type="text" class="form-control" name="tags" value="{{ x.tags }}">
+    </div>
+    <div class="form-group">
+      <label for="url_pc">Windows</label>
+      <input type="url" class="form-control" name="url_pc">
+    </div>
+    <div class="form-group">
+      <label for="url_mac">Mac</label>
+      <input type="url" class="form-control" name="url_mac">
+    </div>
+    <div class="form-group">
+      <label for="url_xbox">Xbox</label>
+      <input type="url" class="form-control" name="url_xbox">
+    </div>
+    <div class="form-group">
+      <label for="url_ps3">PS3</label>
+      <input type="url" class="form-control" name="url_ps3">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
+
+
+{% endblock %}

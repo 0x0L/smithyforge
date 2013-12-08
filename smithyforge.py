@@ -16,6 +16,10 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 from werkzeug import check_password_hash, generate_password_hash
 
+import bs4
+import requests
+import datetime
+
 app = Flask(__name__)
 
 
@@ -61,11 +65,12 @@ class CDLC(db.Model):
     url_mac     = db.Column(db.String(120))
     url_xbox    = db.Column(db.String(120))
     url_ps3     = db.Column(db.String(120))
+    artwork     = db.Column(db.String(120))
     dl_count    = db.Column(db.Integer)
 
-    def __init__(self, title, url):
-        self.title = title
-        self.url   = url
+    def __init__(self):
+        self.last_update = datetime.datetime.utcnow()
+        self.dl_count    = 0
 
     def __repr__(self):
         return '<CDLC %r>' % self.id
@@ -174,6 +179,57 @@ def home():
     #     [session['user_id'], session['user_id'], PER_PAGE]))
     return render_template('home.html')
 
+
+def parseLastFM(url):
+    f       = requests.get(url)
+    soup    = bs4.BeautifulSoup(f.content)
+    title   = soup.select('h1')[1].select('span')[0].text
+    artist  = soup.select('img.crumb-image')[0].parent.text.strip(' \n')
+    album   = soup.select('a.media-link-reference')[0].text
+    tags    = [x.text for x in soup.select('ul.tags')[0].select('a')]
+    artwork = soup.select('img.featured-album')[0]['src']
+
+    # [y.strip() for y in x.split(';')] # to rebuild tags
+    return {
+      'title'   : title,
+      'artist'  : artist,
+      'album'   : album,
+      'tags'    : '; '.join(tags),
+      'artwork' : artwork
+    }
+
+@app.route('/new', methods=['GET', 'POST'])
+def newdlc():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    if request.method == 'GET':
+        stub = {}
+        if request.args.has_key('lastfm'):
+            stub = parseLastFM(request.args['lastfm'])
+
+        return render_template('newdlc.html', x=stub)
+
+    # handle post
+    # todo a bit of checking !!
+    cdlc = CDLC()
+
+    cdlc.title    = request.form['title']
+    cdlc.artist   = request.form['artist']
+    cdlc.album    = request.form['album']
+    cdlc.year     = 2000
+    cdlc.tags     = request.form['tags']
+    cdlc.user_id  = g.user.id
+    cdlc.artwork  = request.form['artwork']
+    cdlc.url_pc   = request.form['url_pc']
+    cdlc.url_mac  = request.form['url_mac']
+    cdlc.url_xbox = request.form['url_xbox']
+    cdlc.url_ps3  = request.form['url_ps3']
+
+    db.session.add(cdlc)
+    db.session.commit()
+    flash('You successfully added a new CDLC')
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     db.create_all()
