@@ -23,6 +23,7 @@
             <th>Title</th>
             <th>Artist</th>
             <th>Album</th>
+            <th>Year</th>
             <th>Platform</th>
         </tr>
     </thead>
@@ -32,6 +33,7 @@
           <td>{{ m.title }}</td>
           <td>{{ m.artist }}</td>
           <td>{{ m.album }}</td>
+          <td>{{ m.year }}</td>
           <td>
             {% if m.url_pc %}
               <a href="{{ m.url_pc }}" class="btn btn-success">Win</a>

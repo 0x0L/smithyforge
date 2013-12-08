@@ -221,7 +221,7 @@ def newdlc():
     cdlc.title    = request.form['title']
     cdlc.artist   = request.form['artist']
     cdlc.album    = request.form['album']
-    cdlc.year     = 2000
+    cdlc.year     = request.form['year']
     cdlc.tags     = request.form['tags']
     cdlc.user_id  = g.user.id
     cdlc.artwork  = request.form['artwork']
