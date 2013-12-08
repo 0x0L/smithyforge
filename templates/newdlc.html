@@ -17,34 +17,33 @@
       <label for="album">Album</label>
       <input type="text" class="form-control" name="album" value="{{ x.album }}">
     </div>
-<!--     <div class="form-group">
-      <label for="year">Year</label>
-      <input type="number" class="form-control" name="year" value="{{ x.year }}">
-    </div>
- -->
     <div class="form-group">
       <label for="artwork">Artwork</label>
-      <input type="text" class="form-control" name="artwork" value="{{ x.artwork }}">
+      <input type="url" class="form-control" name="artwork" value="{{ x.artwork }}" placeholder="Example: http://userserve-ak.last.fm/serve/126s/93728709.png">
     </div>
     <div class="form-group">
       <label for="tags">Tags</label>
-      <input type="text" class="form-control" name="tags" value="{{ x.tags }}">
+      <input type="text" placeholder="Semi-colon separated tags. Example: pop; 80s; michael jackson; dance; rock" class="form-control" name="tags" value="{{ x.tags }}">
+    </div>
+    <div class="form-group">
+      <label for="year">Year</label>
+      <input type="number" class="form-control" name="year" value="{{ x.year }}">
     </div>
     <div class="form-group">
       <label for="url_pc">Windows</label>
-      <input type="url" class="form-control" name="url_pc">
+      <input type="url" placeholder="Paste URL here" class="form-control" name="url_pc">
     </div>
     <div class="form-group">
       <label for="url_mac">Mac</label>
-      <input type="url" class="form-control" name="url_mac">
+      <input type="url" placeholder="Paste URL here" class="form-control" name="url_mac">
     </div>
     <div class="form-group">
       <label for="url_xbox">Xbox</label>
-      <input type="url" class="form-control" name="url_xbox">
+      <input type="url" placeholder="Paste URL here" class="form-control" name="url_xbox">
     </div>
     <div class="form-group">
       <label for="url_ps3">PS3</label>
-      <input type="url" class="form-control" name="url_ps3">
+      <input type="url" placeholder="Paste URL here" class="form-control" name="url_ps3">
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
     <a href="{{ url_for('home') }}" class="btn btn-danger">Cancel</a>

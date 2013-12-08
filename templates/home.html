@@ -3,8 +3,7 @@
 
 {% block body %}
 
-<!-- <h2>{{ self.title() }}</h2> -->
-
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/dataTables.bootstrap.css') }}">
 
 <div class="container">
   <h3>Welcome back, {{ g.user.username }}!</h3>
@@ -52,13 +51,14 @@
     </tbody>
   </table>
 
-  <h3>Create a new custom</h3>
-  <p>Enter a valid Last FM URL to automatically retrieve metadata. This is the prefered way. Alternatively you can leave it blank.</p>
+  <h3>Register your own customs</h3>
+  <p class="alert alert-warning">Do not post a CDLC that isn't yours. If you didn't created it, don't post it.</p>
+  <p>Paste a valid Last FM URL to automatically retrieve metadata. This is the preferred way to ensure consistency of the database.</p>
   <form role="form" class=form-inline action="{{ url_for('newdlc') }}">
   <div class="form-group">
-        <input class="form-control" placeholder="example: http://www.last.fm/music/Michael+Jackson/Thriller/Beat+It" name="lastfm" type="text" size="100" value="">
+        <input class="form-control" placeholder="(optional) Example http://www.last.fm/music/Michael+Jackson/Thriller/Beat+It" name="lastfm" type="text" size="100" value="">
         </div>
-        <button class="btn btn-default" type="submit">Go</button>
+        <button class="btn btn-default" type="submit">Create</button>
   </form>
 </div>
 
@@ -67,14 +67,16 @@
 
 {% block script %}
 
-<script>
-var editor; // use a global for the submit and return data rendering in the examples
+<script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.bootstrap.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='js/dataTables.editor.bootstrap.js') }}"></script> -->
 
+<script>
 $(document).ready(function() {
     $('#example').dataTable( {
-        "sDom": "<'row'<'col-xs-6'T><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+      "sDom": "<'row'<'col-xs-6'T><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
     } );
-} );
+  } );
 </script>
 
 {% endblock %}
