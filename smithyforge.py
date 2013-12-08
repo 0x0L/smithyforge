@@ -177,7 +177,8 @@ def home():
     #                                 where who_id = ?))
     #     order by message.pub_date desc limit ?''',
     #     [session['user_id'], session['user_id'], PER_PAGE]))
-    return render_template('home.html')
+    msg = CDLC.query.all()
+    return render_template('home.html', messages=msg)
 
 
 def parseLastFM(url):
@@ -206,7 +207,10 @@ def newdlc():
     if request.method == 'GET':
         stub = {}
         if request.args.has_key('lastfm'):
-            stub = parseLastFM(request.args['lastfm'])
+            try:
+                stub = parseLastFM(request.args['lastfm'])
+            except:
+                pass
 
         return render_template('newdlc.html', x=stub)
 

@@ -5,31 +5,61 @@
 
 <!-- <h2>{{ self.title() }}</h2> -->
 
-{% if g.user %}
-  {% if request.endpoint == 'user_timeline' %}
-    <div class=followstatus>
-      {% if g.user.user_id == profile_user.user_id %}
-        This is you!
-      {% elif followed %}
-        You are currently following this user.
-        <a class=unfollow href="{{ url_for('unfollow_user', username=profile_user.username)}}">Unfollow user</a>.
-      {% else %}
-        You are not yet following this user.
-        <a class=follow href="{{ url_for('follow_user', username=profile_user.username)}}">Follow user</a>.
-      {% endif %}
-    </div>
-  {% elif request.endpoint == 'home' %}
-    <!-- <h3>Welcome back, {{ g.user.username }}!</h3> -->
-    <div class="container">
-      <h3>Create a new custom</h3>
-      <form role="form" class=form-inline action="{{ url_for('newdlc') }}">
-      <div class="form-group">
-            <input class="form-control" placeholder="example: http://www.last.fm/music/Michael+Jackson/Thriller/Beat+It" name="lastfm" type="text" size="100" value="">
-            </div>
-            <button class="btn btn-default" type="submit">Go</button>
-      </form>
-    </div>
-  {% endif %}
-{% endif %}
+
+<div class="container">
+  <h3>Welcome back, {{ g.user.username }}!</h3>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+  <p>Visit the <a href="http://www.rscustom.net/">Rocksmith Custom Song Project</a> and <a href="http://forums.smithyanvil.com/">Smithy's Anvil</a>.</p>
+
+  <h3>Browse CDLCs</h3>
+  <table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for m in messages %}
+        <tr>
+            <td>{{ m.title }}</td>
+            <td>{{ m.artist }}</td>
+            <td>{{ m.album }}</td>
+            <td>
+              {% if m.url_pc %}
+                <a href="{{ m.url_pc }}" class="btn btn-default btn-table btn-sm">Win</a>
+              {% endif %}
+              {% if m.url_mac %}
+                <a href="{{ m.url_mac }}" class="btn btn-default btn-table btn-sm">Mac</a>
+              {% endif %}
+              {% if m.url_xbox %}
+                <a href="{{ m.url_xbox }}" class="btn btn-default btn-table btn-sm">Xbox</a>
+              {% endif %}
+              {% if m.url_ps3 %}
+                <a href="{{ m.url_ps3 }}" class="btn btn-default btn-table btn-sm">PS3</a>
+              {% endif %}
+            </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3>Create a new custom</h3>
+  <p>Enter a valid Last FM URL to automatically retrieve metadata. This is the prefered way. Alternatively you can leave it blank.</p>
+  <form role="form" class=form-inline action="{{ url_for('newdlc') }}">
+  <div class="form-group">
+        <input class="form-control" placeholder="example: http://www.last.fm/music/Michael+Jackson/Thriller/Beat+It" name="lastfm" type="text" size="100" value="">
+        </div>
+        <button class="btn btn-default" type="submit">Go</button>
+  </form>
+</div>
 
 {% endblock %}
