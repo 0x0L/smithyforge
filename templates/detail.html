@@ -61,7 +61,10 @@
 }
 
 .review {
-  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   background-color: rgb(245, 245, 245);
   border-color: rgb(221, 221, 221);
   border-width: 1px;
@@ -72,28 +75,29 @@
   border-top-right-radius: 4px;
 }
 
-span.title {
-  font-size: 24px
+.addsomepad {
+ margin-top: 30px;
 }
 
 span.reviewer {
-  font-size: 18px
+  font-size: 24px;
+}
+
+.grade {
+  font-size: 32px;
+  color: green;
 }
 
 p.review_text {
-  margin-top: 10px
-}
-
-.addsomepad {
- margin-top: 30px
+  margin-top: 10px;
+  margin-left: 10px;
 }
 </style>
 
 <div class="addsomepad container">
   <h3>Reviews</h3>
   <div class="review">
-    <span class="title">The first review ever</span>
-    by
+    <span class="grade">97%</span> by
     <span class="reviewer">xavatar</span>
     <p class="review_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
