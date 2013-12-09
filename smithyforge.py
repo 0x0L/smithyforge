@@ -264,15 +264,36 @@ def newdlc():
     return redirect(url_for('viewdlc', id=cdlc.id))
 
 
-@app.route('/view')
+@app.route('/view', methods=['GET', 'POST'])
 def viewdlc():
     if not g.user:
         return redirect(url_for('login'))
 
+    if request.method == 'POST':
+        r = Review.query.filter_by(user_id=g.user.id, cdlc_id=request.form['id']).first()
+        if r is None:
+            r = Review()
+            r.user_id = g.user.id
+            r.cdlc_id = request.form['id']
+
+        r.content = request.form['newreview_text']
+        r.score   = request.form['score']
+        r.date    = datetime.datetime.utcnow()
+
+        db.session.add(r)
+        db.session.commit()
+
+        flash('Your comment was posted')
+        return redirect(url_for('viewdlc', id=request.form['id']))
+
     stub = CDLC.query.filter_by(id=request.args['id']).first()
     stub.tags = [y.strip() for y in stub.tags.split(';')]
     stub.dlc_creator = User.query.filter_by(id=stub.user_id).first().username
-    return render_template('detail.html', x=stub)
+
+    rs = Review.query.filter_by(cdlc_id=request.args['id']).all()
+    # for r in rs:
+    #     r['pretty_name'] = User.query.filter_by(id=r['user_id']).first().username
+    return render_template('detail.html', x=stub, reviews=rs)
 
 if __name__ == '__main__':
     db.create_all()

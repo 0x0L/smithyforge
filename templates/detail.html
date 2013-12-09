@@ -94,25 +94,24 @@ p.review_text {
 
 <div class="addsomepad container">
   <h3>Reviews</h3>
+  {% for r in reviews %}
   <div class="review">
-    <span class="grade">97%</span> by
-    <span class="reviewer">xavatar</span> on 2013-12-09
-    <p class="review_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <span class="grade">{{r.score}}%</span>
+    <!-- by <span class="reviewer">{{r.pretty_name}}</span> -->
+    on {{ r.date.strftime('%B %d, %Y') }}
+    <p class="review_text">{{ r.content }}</p>
   </div>
+  {% endfor %}
 </div>
 
 <div class="container">
   <h3>Post a new review</h3>
   <p class="alert alert-warning">This will overwrite your previous review.</p>
-  <form role="form" class="newreview">
+  <form role="form" class="newreview" method=post>
+    <input type="hidden" name="id" value="{{ x.id }}">
     <div class="form-group">
       <label for="score" class="control-label">Your score (from 0 to 100)</label>
-      <input type="number" min=0 max=100 class="form-control" name="score" style="width:75px" value=50>
+      <input type="number" min=0 max=100 step=1 class="form-control" name="score" style="width:75px" value=50>
     </div>
     <div class="form-group">
       <label for="newreview_text" class="control-label">Your comments</label>
@@ -121,6 +120,5 @@ p.review_text {
     <button class="btn btn-default" type="submit">Submit</button>
   </form>
 </div>
-
 
 {% endblock %}
