@@ -6,47 +6,78 @@
 <div class="container">
   <form role="form" method="post">
     <div class="form-group">
-      <label for="title">Title</label>
-      <input type="text" class="form-control" name="title" value="{{ x.title }}">
+      <label for="title" class="control-label">Title</label>
+      <input type="text" class="form-control" name="title" value="{{ x.title if x.title }}">
     </div>
     <div class="form-group">
-      <label for="artist">Artist</label>
-      <input type="text" class="form-control" name="artist" value="{{ x.artist }}">
+      <label for="artist" class="control-label">Artist</label>
+      <input type="text" class="form-control" name="artist" value="{{ x.artist if x.artist }}">
     </div>
     <div class="form-group">
-      <label for="album">Album</label>
-      <input type="text" class="form-control" name="album" value="{{ x.album }}">
+      <label for="album" class="control-label">Album</label>
+      <input type="text" class="form-control" name="album" value="{{ x.album if x.album }}">
     </div>
     <div class="form-group">
-      <label for="artwork">Artwork</label>
-      <input type="url" class="form-control" name="artwork" value="{{ x.artwork }}" placeholder="Example: http://userserve-ak.last.fm/serve/126s/93728709.png">
+      <label for="artwork" class="control-label">Artwork</label>
+      <input type="url" class="form-control" name="artwork" value="{{ x.artwork if x.artwork }}" placeholder="Example: http://userserve-ak.last.fm/serve/126s/93728709.png">
     </div>
     <div class="form-group">
-      <label for="tags">Tags</label>
-      <input type="text" placeholder="Semi-colon separated tags. Example: pop; 80s; michael jackson; dance; rock" class="form-control" name="tags" value="{{ x.tags }}">
+      <label for="tags" class="control-label">Tags</label>
+      <input type="text" placeholder="Semi-colon separated tags. Example: pop; 80s; michael jackson; dance; rock" class="form-control" name="tags" value="{{ x.tags if x.tags }}">
     </div>
     <div class="form-group">
-      <label for="year">Year</label>
+      <label for="year" class="control-label">Year</label>
       <input type="number" class="form-control" name="year" value="{{ x.year }}">
     </div>
     <div class="form-group">
-      <label for="url_pc">Windows</label>
+      <label for="tracks" class="control-label">Tracks</label>
+      <div class="input-group">
+        <input type="checkbox" name="tr_guitar" {{ 'checked="true"' if x.tr_guitar }}> Guitar
+        <input type="checkbox" name="tr_bass" {{ 'checked="true"' if x.tr_bass }}> Bass
+        <input type="checkbox" name="tr_vocal" {{ 'checked="true"' if x.tr_vocal }}> Vocal
+      </div>
+    </div>
+<!--       <input type="number" class="form-control" name="tracks" value="{{ x.tracks }}">
+ -->
+    <div class="form-group">
+      <label for="tuning" class="control-label">Tuning</label>
+      <select class="form-control" name="tuning" value="{{ x.tuning }}">
+        <option>E Standard</option>
+        <option>Drop D</option>
+        <option>Open D</option>
+        <option>Open A</option>
+        <option>Open E</option>
+        <option>Eb Standard</option>
+        <option>Eb Drop Db</option>
+        <option>E Standard</option>
+        <option>DADGAD</option>
+        <option>D Drop C</option>
+        <option>C# Standard</option>
+        <option>C Standard</option>
+        <option>CGCGGE</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="url_pc" class="control-label">Windows</label>
       <input type="url" placeholder="Paste URL here" class="form-control" name="url_pc">
     </div>
     <div class="form-group">
-      <label for="url_mac">Mac</label>
+      <label for="url_mac" class="control-label">Mac</label>
       <input type="url" placeholder="Paste URL here" class="form-control" name="url_mac">
     </div>
     <div class="form-group">
-      <label for="url_xbox">Xbox</label>
+      <label for="url_xbox" class="control-label">Xbox</label>
       <input type="url" placeholder="Paste URL here" class="form-control" name="url_xbox">
     </div>
     <div class="form-group">
-      <label for="url_ps3">PS3</label>
+      <label for="url_ps3" class="control-label">PS3</label>
       <input type="url" placeholder="Paste URL here" class="form-control" name="url_ps3">
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-    <a href="{{ url_for('home') }}" class="btn btn-danger">Cancel</a>
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Submit</button>
+      <a href="{{ url_for('home') }}" class="btn btn-danger">Cancel</a>
+    </div>
   </form>
 </div>
 

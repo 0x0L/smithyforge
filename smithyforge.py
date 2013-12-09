@@ -57,7 +57,7 @@ class CDLC(db.Model):
     artist      = db.Column(db.String(80))
     album       = db.Column(db.String(80))
     year        = db.Column(db.Integer)
-    tags        = db.Column(db.String(80))
+    tags        = db.Column(db.String(200))
     user_id     = db.Column(db.Integer, db.ForeignKey('user.id'))
     last_update = db.Column(db.DateTime)
     reviews     = db.relationship('Review', backref='CDLC', lazy='dynamic')
@@ -67,10 +67,18 @@ class CDLC(db.Model):
     url_ps3     = db.Column(db.String(120))
     artwork     = db.Column(db.String(120))
     dl_count    = db.Column(db.Integer)
+    tr_guitar   = db.Column(db.Boolean)
+    tr_bass     = db.Column(db.Boolean)
+    tr_vocal    = db.Column(db.Boolean)
+    tuning      = db.Column(db.String(40))
 
     def __init__(self):
         self.last_update = datetime.datetime.utcnow()
         self.dl_count    = 0
+        self.tuning      = "E Standard"
+        self.tr_guitar   = True
+        self.tr_bass     = True
+        self.tr_vocal    = True
 
     def __repr__(self):
         return '<CDLC %r>' % self.id
@@ -193,14 +201,13 @@ def parseLastFM(url):
     tags    = [x.text for x in soup.select('ul.tags')[0].select('a')]
     artwork = soup.select('img.featured-album')[0]['src']
 
-    # [y.strip() for y in x.split(';')] # to rebuild tags
-    return {
-      'title'   : title,
-      'artist'  : artist,
-      'album'   : album,
-      'tags'    : '; '.join(tags),
-      'artwork' : artwork
-    }
+    cdlc = CDLC()
+    c['title']   = title,
+    c['artist']  = artist,
+    c['album']   = album,
+    c['tags']    = '; '.join(tags), # [y.strip() for y in x.split(';')] # to rebuild tags
+    c['artwork'] = artwork
+    return c
 
 @app.route('/new', methods=['GET', 'POST'])
 def newdlc():
@@ -208,12 +215,10 @@ def newdlc():
         return redirect(url_for('login'))
 
     if request.method == 'GET':
-        stub = {}
-        if request.args.has_key('lastfm'):
-            try:
-                stub = parseLastFM(request.args['lastfm'])
-            except:
-                pass
+        try:
+            stub = parseLastFM(request.args['lastfm'])
+        except:
+            stub = CDLC()
 
         return render_template('newdlc.html', x=stub)
 
@@ -221,17 +226,21 @@ def newdlc():
     # todo a bit of checking !!
     cdlc = CDLC()
 
-    cdlc.title    = request.form['title']
-    cdlc.artist   = request.form['artist']
-    cdlc.album    = request.form['album']
-    cdlc.year     = request.form['year']
-    cdlc.tags     = request.form['tags']
-    cdlc.user_id  = g.user.id
-    cdlc.artwork  = request.form['artwork']
-    cdlc.url_pc   = request.form['url_pc']
-    cdlc.url_mac  = request.form['url_mac']
-    cdlc.url_xbox = request.form['url_xbox']
-    cdlc.url_ps3  = request.form['url_ps3']
+    cdlc.title     = request.form['title']
+    cdlc.artist    = request.form['artist']
+    cdlc.album     = request.form['album']
+    cdlc.tags      = request.form['tags']
+    cdlc.year      = request.form['year'] if request.form['year'] != '' else 0
+    cdlc.tr_guitar = request.form.has_key('tr_guitar')
+    cdlc.tr_bass   = request.form.has_key('tr_bass')
+    cdlc.tr_vocal  = request.form.has_key('tr_vocal')
+    cdlc.tuning    = request.form['tuning']
+    cdlc.user_id   = g.user.id
+    cdlc.artwork   = request.form['artwork']
+    cdlc.url_pc    = request.form['url_pc']
+    cdlc.url_mac   = request.form['url_mac']
+    cdlc.url_xbox  = request.form['url_xbox']
+    cdlc.url_ps3   = request.form['url_ps3']
 
     db.session.add(cdlc)
     db.session.commit()
