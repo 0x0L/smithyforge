@@ -4,6 +4,10 @@
 {% block body %}
 
 <div class="container">
+  <h3>Create / Edit your custom</h3>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+  quis nostrud exercitation ullamco laboris...</p>
   <form role="form" method="post">
     <div class="form-group">
       <label for="title" class="control-label">Title</label>
@@ -41,8 +45,7 @@
  -->
     <div class="form-group">
       <label for="tuning" class="control-label">Tuning</label>
-      <select class="form-control" name="tuning" value="{{ x.tuning }}">
-        <option>E Standard</option>
+      <select class="form-control" name="tuning">
         <option>Drop D</option>
         <option>Open D</option>
         <option>Open A</option>
@@ -56,6 +59,7 @@
         <option>C Standard</option>
         <option>CGCGGE</option>
         <option>Other</option>
+        <option selected="selected">{{ x.tuning }}</option>
       </select>
     </div>
     <div class="form-group">

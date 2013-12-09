@@ -260,7 +260,7 @@ def newdlc():
     db.session.add(cdlc)
     db.session.commit()
     flash(flash_m)
-    return redirect(url_for('home'))
+    return redirect(url_for('viewdlc', id=cdlc.id))
 
 
 @app.route('/view')
