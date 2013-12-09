@@ -15,7 +15,7 @@
           <a href="/new?id={{ x.id }}" class="btn btn-default">Edit</a>
         {% endif %}
       </h3>
-      by <strong>{{ x.artist }}</strong> on {{ x.album }} ({{ x.year }})
+      by <strong>{{ x.artist }}</strong> on <strong>{{ x.album }}</strong> ({{ x.year }})
       <br><br>
       {% for t in x.tags %}
         <button class="btn btn-primary btn-xs">{{ t }}</button>
@@ -26,9 +26,7 @@
       Vocal {{ '\u2714' if x.tr_vocal else '\u2718'}}
       (Tuning {{ x.tuning }})
       <br><br>
-      Last updated on {{ x.last_update.strftime('%Y-%m-%d') }}
-      <br>
-      CDLC created by {{ x.dlc_creator }}
+      Last updated by <strong>{{ x.dlc_creator }}</strong> on {{ x.last_update.strftime('%B %d, %Y') }}
       <br><br>
       {% if x.url_pc %}
         <a href="{{ x.url_pc }}" class="url btn btn-success">Win</a>

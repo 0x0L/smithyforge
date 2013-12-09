@@ -26,6 +26,7 @@
             <th>Year</th>
             <th>Tags</th>
             <th width="140px">Platform</th>
+            <th>Updated</th>
         </tr>
     </thead>
     <tbody>
@@ -53,6 +54,9 @@
             {% if m.url_ps3 %}
               <a href="{{ m.url_ps3 }}" class="btn btn-success btn-xs">PS3</a>
             {% endif %}
+          </td>
+          <td>
+            {{ m.last_update.strftime('%Y-%m-%d') }}
           </td>
         </tr>
       {% endfor %}
