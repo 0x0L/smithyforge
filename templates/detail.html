@@ -21,36 +21,88 @@
         <button class="btn btn-primary btn-xs">{{ t }}</button>
       {% endfor %}
       <br><br>
-      Available for<br>
-      {% if x.url_pc %}
-        <a href="{{ x.url_pc }}" class="btn btn-success">Win</a>
-      {% endif %}
-      {% if x.url_mac %}
-        <a href="{{ x.url_mac }}" class="btn btn-success">Mac</a>
-      {% endif %}
-      {% if x.url_xbox %}
-        <a href="{{ x.url_xbox }}" class="btn btn-success">Xbox</a>
-      {% endif %}
-      {% if x.url_ps3 %}
-        <a href="{{ x.url_ps3 }}" class="btn btn-success">PS3</a>
-      {% endif %}
-      <br><br>
       Guitar {{ '\u2714' if x.tr_guitar else '\u2718'}}
       Bass {{ '\u2714' if x.tr_bass else '\u2718'}}
       Vocal {{ '\u2714' if x.tr_vocal else '\u2718'}}
+      (Tuning {{ x.tuning }})
       <br><br>
-      Tuning: {{ x.tuning }}
+      Last updated on {{ x.last_update.strftime('%Y-%m-%d') }}
+      <br>
+      CDLC created by {{ x.dlc_creator }}
       <br><br>
-      LastUpdate: {{ x.last_update }}
-      <br><br>
-      DLCCreator: {{ x.dlc_creator }}
+      {% if x.url_pc %}
+        <a href="{{ x.url_pc }}" class="url btn btn-success">Win</a>
+      {% else %}
+        <a class="url btn btn-success" disabled="disabled">Win</a>
+      {% endif %}
+      {% if x.url_mac %}
+        <a href="{{ x.url_mac }}" class="url btn btn-success" >Mac</a>
+      {% else %}
+        <a class="url btn btn-success" disabled="disabled">Mac</a>
+      {% endif %}
+      {% if x.url_xbox %}
+        <a href="{{ x.url_xbox }}" class="url btn btn-success">Xbox</a>
+      {% else %}
+        <a class="url btn btn-success" disabled="disabled">Xbox</a>
+      {% endif %}
+      {% if x.url_ps3 %}
+        <a href="{{ x.url_ps3 }}" class="url btn btn-success">PS3</a>
+      {% else %}
+        <a class="url btn btn-success" disabled="disabled">PS3</a>
+      {% endif %}
     </div>
   </div>
 </div>
 
-<div class="container">
-<h3>Reviews</h3>
-TODO
+
+<style>
+.url {
+  width: 70px;
+}
+
+.review {
+  padding: 20px;
+  background-color: rgb(245, 245, 245);
+  border-color: rgb(221, 221, 221);
+  border-width: 1px;
+  border-style: solid;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+span.title {
+  font-size: 24px
+}
+
+span.reviewer {
+  font-size: 18px
+}
+
+p.review_text {
+  margin-top: 10px
+}
+
+.addsomepad {
+ margin-top: 30px
+}
+</style>
+
+<div class="addsomepad container">
+  <h3>Reviews</h3>
+  <div class="review">
+    <span class="title">The first review ever</span>
+    by
+    <span class="reviewer">xavatar</span>
+    <p class="review_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+</div>
 </div>
 
 
