@@ -1,6 +1,10 @@
 body {
-	padding-top: 70px;
+	padding-top: 50px;
 	padding-bottom: 30px;
+}
+
+.body {
+	padding-top: 20px;
 }
 
 td>button.btn {
