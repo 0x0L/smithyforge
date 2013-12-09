@@ -24,7 +24,8 @@
             <th>Artist</th>
             <th>Album</th>
             <th>Year</th>
-            <th>Platform</th>
+            <th>Tags</th>
+            <th width="140px">Platform</th>
         </tr>
     </thead>
     <tbody>
@@ -35,17 +36,22 @@
           <td>{{ m.album }}</td>
           <td>{{ m.year }}</td>
           <td>
+            {% for t in m.tags %}
+              <button class="btn btn-primary btn-xs">{{ t }}</button>
+            {% endfor %}
+          </td>
+          <td>
             {% if m.url_pc %}
-              <a href="{{ m.url_pc }}" class="btn btn-success">Win</a>
+              <a href="{{ m.url_pc }}" class="btn btn-success btn-xs">Win</a>
             {% endif %}
             {% if m.url_mac %}
-              <a href="{{ m.url_mac }}" class="btn btn-success">Mac</a>
+              <a href="{{ m.url_mac }}" class="btn btn-success btn-xs">Mac</a>
             {% endif %}
             {% if m.url_xbox %}
-              <a href="{{ m.url_xbox }}" class="btn btn-success">Xbox</a>
+              <a href="{{ m.url_xbox }}" class="btn btn-success btn-xs">Xbox</a>
             {% endif %}
             {% if m.url_ps3 %}
-              <a href="{{ m.url_ps3 }}" class="btn btn-success">PS3</a>
+              <a href="{{ m.url_ps3 }}" class="btn btn-success btn-xs">PS3</a>
             {% endif %}
           </td>
         </tr>

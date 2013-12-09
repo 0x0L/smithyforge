@@ -178,6 +178,9 @@ def home():
     #     order by message.pub_date desc limit ?''',
     #     [session['user_id'], session['user_id'], PER_PAGE]))
     msg = CDLC.query.all()
+    for m in msg:
+        m.tags = [y.strip() for y in m.tags.split(';')]
+    print(msg)
     return render_template('home.html', messages=msg)
 
 

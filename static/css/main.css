@@ -2,3 +2,12 @@ body {
 	padding-top: 70px;
 	padding-bottom: 30px;
 }
+
+td>button.btn {
+	margin: 2px;
+}
+
+td>a.btn {
+	margin: 2px;
+	width: 50px;
+}
