@@ -188,7 +188,6 @@ def home():
     msg = CDLC.query.all()
     for m in msg:
         m.tags = [y.strip() for y in m.tags.split(';')]
-    print(msg)
     return render_template('home.html', messages=msg)
 
 
@@ -215,37 +214,64 @@ def newdlc():
         return redirect(url_for('login'))
 
     if request.method == 'GET':
-        try:
-            stub = parseLastFM(request.args['lastfm'])
-        except:
-            stub = CDLC()
+        stub = CDLC()
+        if request.args.has_key('lastfm'):
+            try:
+                stub = parseLastFM(request.args['lastfm'])
+            except:
+                stub = CDLC()
+        elif request.args.has_key('id'):
+            stub = CDLC.query.filter_by(id=request.args['id']).first()
+            if stub.user_id != g.user.id:
+                return "Don't do that !"
 
         return render_template('newdlc.html', x=stub)
 
     # handle post
     # todo a bit of checking !!
     cdlc = CDLC()
+    flash_m = 'You successfully added a new CDLC'
 
-    cdlc.title     = request.form['title']
-    cdlc.artist    = request.form['artist']
-    cdlc.album     = request.form['album']
-    cdlc.tags      = request.form['tags']
-    cdlc.year      = request.form['year'] if request.form['year'] != '' else 0
-    cdlc.tr_guitar = request.form.has_key('tr_guitar')
-    cdlc.tr_bass   = request.form.has_key('tr_bass')
-    cdlc.tr_vocal  = request.form.has_key('tr_vocal')
-    cdlc.tuning    = request.form['tuning']
-    cdlc.user_id   = g.user.id
-    cdlc.artwork   = request.form['artwork']
-    cdlc.url_pc    = request.form['url_pc']
-    cdlc.url_mac   = request.form['url_mac']
-    cdlc.url_xbox  = request.form['url_xbox']
-    cdlc.url_ps3   = request.form['url_ps3']
+    # check permissuib
+    if request.args.has_key('id'):
+        cdlc = CDLC.query.filter_by(id=request.args['id']).first()
+        if cdlc.user_id != g.user.id:
+            return "Don't do that !"
+        else:
+            flash_m = request.form['title'] + ' was updated!'
+
+    cdlc.title       = request.form['title']
+    cdlc.artist      = request.form['artist']
+    cdlc.album       = request.form['album']
+    cdlc.tags        = request.form['tags']
+    cdlc.year        = request.form['year'] if request.form['year'] != '' else 0
+    cdlc.tr_guitar   = request.form.has_key('tr_guitar')
+    cdlc.tr_bass     = request.form.has_key('tr_bass')
+    cdlc.tr_vocal    = request.form.has_key('tr_vocal')
+    cdlc.tuning      = request.form['tuning']
+    cdlc.user_id     = g.user.id
+    cdlc.artwork     = request.form['artwork']
+    cdlc.url_pc      = request.form['url_pc']
+    cdlc.url_mac     = request.form['url_mac']
+    cdlc.url_xbox    = request.form['url_xbox']
+    cdlc.url_ps3     = request.form['url_ps3']
+    cdlc.last_update = datetime.datetime.utcnow()
 
     db.session.add(cdlc)
     db.session.commit()
-    flash('You successfully added a new CDLC')
+    flash(flash_m)
     return redirect(url_for('home'))
+
+
+@app.route('/view')
+def viewdlc():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    stub = CDLC.query.filter_by(id=request.args['id']).first()
+    stub.tags = [y.strip() for y in stub.tags.split(';')]
+    stub.dlc_creator = User.query.filter_by(id=stub.user_id).first().username
+    return render_template('detail.html', x=stub)
 
 if __name__ == '__main__':
     db.create_all()

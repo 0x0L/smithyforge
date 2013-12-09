@@ -60,19 +60,19 @@
     </div>
     <div class="form-group">
       <label for="url_pc" class="control-label">Windows</label>
-      <input type="url" placeholder="Paste URL here" class="form-control" name="url_pc">
+      <input type="url" placeholder="Paste URL here" class="form-control" name="url_pc" value="{{ x.url_pc if x.url_pc }}">
     </div>
     <div class="form-group">
       <label for="url_mac" class="control-label">Mac</label>
-      <input type="url" placeholder="Paste URL here" class="form-control" name="url_mac">
+      <input type="url" placeholder="Paste URL here" class="form-control" name="url_mac" value="{{ x.url_mac if x.url_mac }}">
     </div>
     <div class="form-group">
       <label for="url_xbox" class="control-label">Xbox</label>
-      <input type="url" placeholder="Paste URL here" class="form-control" name="url_xbox">
+      <input type="url" placeholder="Paste URL here" class="form-control" name="url_xbox" value="{{ x.url_xbox if x.url_xbox }}">
     </div>
     <div class="form-group">
       <label for="url_ps3" class="control-label">PS3</label>
-      <input type="url" placeholder="Paste URL here" class="form-control" name="url_ps3">
+      <input type="url" placeholder="Paste URL here" class="form-control" name="url_ps3" value="{{ x.url_ps3 if x.url_ps3 }}">
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-default">Submit</button>

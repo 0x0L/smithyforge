@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block title %} {{request.endpoint}} {% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <div class="row-fluid">
+    <div class="col-md-4">
+      <img src="{{ x.artwork }}" width="256px">
+    </div>
+    <div class="col-md8">
+      <h3>
+        {{ x.title }}
+        {% if g.user.id == x.user_id %}
+          <a href="/new?id={{ x.id }}" class="btn btn-default">Edit</a>
+        {% endif %}
+      </h3>
+      by <strong>{{ x.artist }}</strong> on {{ x.album }} ({{ x.year }})
+      <br><br>
+      {% for t in x.tags %}
+        <button class="btn btn-primary btn-xs">{{ t }}</button>
+      {% endfor %}
+      <br><br>
+      Available for<br>
+      {% if x.url_pc %}
+        <a href="{{ x.url_pc }}" class="btn btn-success">Win</a>
+      {% endif %}
+      {% if x.url_mac %}
+        <a href="{{ x.url_mac }}" class="btn btn-success">Mac</a>
+      {% endif %}
+      {% if x.url_xbox %}
+        <a href="{{ x.url_xbox }}" class="btn btn-success">Xbox</a>
+      {% endif %}
+      {% if x.url_ps3 %}
+        <a href="{{ x.url_ps3 }}" class="btn btn-success">PS3</a>
+      {% endif %}
+      <br><br>
+      Guitar {{ '\u2714' if x.tr_guitar else '\u2718'}}
+      Bass {{ '\u2714' if x.tr_bass else '\u2718'}}
+      Vocal {{ '\u2714' if x.tr_vocal else '\u2718'}}
+      <br><br>
+      Tuning: {{ x.tuning }}
+      <br><br>
+      LastUpdate: {{ x.last_update }}
+      <br><br>
+      DLCCreator: {{ x.dlc_creator }}
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<h3>Reviews</h3>
+TODO
+</div>
+
+
+{% endblock %}

@@ -31,7 +31,7 @@
     <tbody>
       {% for m in messages %}
         <tr>
-          <td>{{ m.title }}</td>
+          <td><a href="view?id={{ m.id }}">{{ m.title }}</a></td>
           <td>{{ m.artist }}</td>
           <td>{{ m.album }}</td>
           <td>{{ m.year }}</td>
