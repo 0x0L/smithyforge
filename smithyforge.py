@@ -90,6 +90,7 @@ class Review(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     date    = db.Column(db.DateTime)
     content = db.Column(db.Text)
+    score   = db.Column(db.Integer)
 
     def __repr__(self):
         return '<Review %r>' % self.id

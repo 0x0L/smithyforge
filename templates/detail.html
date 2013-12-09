@@ -96,7 +96,7 @@ p.review_text {
   <h3>Reviews</h3>
   <div class="review">
     <span class="grade">97%</span> by
-    <span class="reviewer">xavatar</span>
+    <span class="reviewer">xavatar</span> on 2013-12-09
     <p class="review_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -105,6 +105,21 @@ p.review_text {
     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   </div>
 </div>
+
+<div class="container">
+  <h3>Post a new review</h3>
+  <p class="alert alert-warning">This will overwrite your previous review.</p>
+  <form role="form" class="newreview">
+    <div class="form-group">
+      <label for="score" class="control-label">Your score (from 0 to 100)</label>
+      <input type="number" min=0 max=100 class="form-control" name="score" style="width:75px" value=50>
+    </div>
+    <div class="form-group">
+      <label for="newreview_text" class="control-label">Your comments</label>
+      <textarea type="text" min=0 max=100 class="form-control" name="newreview_text" value="" placeholder="Type your review here" rows=8></textarea>
+    </div>
+    <button class="btn btn-default" type="submit">Submit</button>
+  </form>
 </div>
 
 
