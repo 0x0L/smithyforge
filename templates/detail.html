@@ -14,6 +14,9 @@
         {% if g.user.id == x.user_id %}
           <a href="/new?id={{ x.id }}" class="btn btn-default">Edit</a>
         {% endif %}
+        {% for number in range(score) %}
+          <span id="mean_score" class="glyphicon glyphicon-star"></span>
+        {% endfor %}
       </h3>
       by <strong>{{ x.artist }}</strong> on <strong>{{ x.album }}</strong> ({{ x.year }})
       <br><br>
@@ -90,6 +93,20 @@ p.review_text {
   margin-top: 10px;
   margin-left: 10px;
 }
+
+i.glyphicon {
+  font-size: 28pt;
+}
+
+span.glyphicon {
+  font-size: 16pt;
+}
+
+#mean_score {
+  font-size: 20pt;
+  color: gold;
+}
+
 </style>
 
 <div class="addsomepad container">
@@ -126,15 +143,6 @@ p.review_text {
 {% endblock %}
 
 {% block script %}
-
-<style>
-i.glyphicon {
-  font-size: 28pt;
-}
-span.glyphicon {
-  font-size: 16pt;
-}
-</style>
 
 <script src="{{ url_for('static', filename='js/bootstrap-rating-input.js') }}"></script>
 

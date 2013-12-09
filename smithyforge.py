@@ -291,9 +291,14 @@ def viewdlc():
     stub.dlc_creator = User.query.filter_by(id=stub.user_id).first().username
 
     rs = Review.query.filter_by(cdlc_id=request.args['id']).all()
+    score = 0
+    if len(rs) > 0:
+        for r in rs:
+            score += r.score
+        score = 1 + score / len(rs)
     # for r in rs:
     #     r['pretty_name'] = User.query.filter_by(id=r['user_id']).first().username
-    return render_template('detail.html', x=stub, reviews=rs)
+    return render_template('detail.html', x=stub, reviews=rs, score=score)
 
 if __name__ == '__main__':
     db.create_all()
