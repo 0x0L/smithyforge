@@ -194,6 +194,7 @@ def home():
 
 def parseLastFM(url):
     f       = requests.get(url)
+
     soup    = bs4.BeautifulSoup(f.content)
     title   = soup.select('h1')[1].select('span')[0].text
     artist  = soup.select('img.crumb-image')[0].parent.text.strip(' \n')
@@ -201,12 +202,12 @@ def parseLastFM(url):
     tags    = [x.text for x in soup.select('ul.tags')[0].select('a')]
     artwork = soup.select('img.featured-album')[0]['src']
 
-    cdlc = CDLC()
-    c['title']   = title,
-    c['artist']  = artist,
-    c['album']   = album,
-    c['tags']    = '; '.join(tags), # [y.strip() for y in x.split(';')] # to rebuild tags
-    c['artwork'] = artwork
+    c = CDLC()
+    c.title   = title
+    c.artist  = artist
+    c.album   = album
+    c.tags    = '; '.join(tags) # [y.strip() for y in x.split(';')] # to rebuild tags
+    c.artwork = artwork
     return c
 
 @app.route('/new', methods=['GET', 'POST'])
